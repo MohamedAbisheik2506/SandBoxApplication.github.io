@@ -1,118 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandbox Application</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        
-        h1,
-        h2 {
-            color: #0056b3;
-        }
-        
-        pre {
-            background-color: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-        
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 10px 0;
-        }
-        
-        a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-        
-        a:hover {
-            text-decoration: underline;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandbox Application</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    header {
+      background: #007bff;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    nav {
+      background: #343a40;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #0056b3;
+      border-bottom: 2px solid #0056b3;
+      padding-bottom: 5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    img, video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 20px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    ul, ol {
+      margin-left: 20px;
+    }
+    pre {
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #343a40;
+      color: white;
+      font-size: 1em;
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Sandbox Application</h1>
-        <h2>1. Network Diagram</h2>
-        <p>Here is the network diagram: Configuration Steps: You need to create three VM Machine’s for this Project. • Download the Virtual Box (VM) and install in your PC. • Download the three OS for project. • Ubuntu Desktop (.iso format) or our Desktop
-            OS like (Kali Linux, Windows, etc..,). • Ubuntu Server OS (.iso format). • Application Server in Bitnami WordPress (.ova format). • Add three OS in Virtual Box.
+  <header>
+    <h1>Sandbox Application</h1>
+  </header>
+  <nav>
+    <a href="#ip-table">IP Address Table</a>
+    <a href="#lab-report">Configuration Codes</a>
+    <a href="#test-results">Functional Test Results</a>
+    <a href="#demo">Video Demo</a>
+  </nav>
+  <div class="container">
+    <section id="ip-table">
+      <h2>IP Address Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Device</th>
+            <th>Role</th>
+            <th>IP Address</th>
+            <th>Subnet Mask</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Desktop VM (Ubuntu Desktop)</td>
+            <td>Management</td>
+            <td>192.168.22.2</td>
+            <td>255.255.255.0</td>
+          </tr>
+          <tr>
+            <td>Gateway Router VM (enp0s3)</td>
+            <td>Internet Access</td>
+            <td>10.0.0.16</td>
+            <td>255.255.255.0</td>
+          </tr>
+          <tr>
+            <td>Gateway Router VM (enp0s8)</td>
+            <td>Subnet 01 - Internal Network</td>
+            <td>192.168.22.1</td>
+            <td>255.255.255.0</td>
+          </tr>
+          <tr>
+            <td>Gateway Router VM (enp0s9)</td>
+            <td>Subnet 02 - Internal Network</td>
+            <td>192.168.122.1</td>
+            <td>255.255.255.0</td>
+          </tr>
+          <tr>
+            <td>Application Server VM (Bitnami)</td>
+            <td>Server</td>
+            <td>192.168.122.2</td>
+            <td>255.255.255.0</td>
+          </tr>
+        </tbody>
+      </table>
+      <img src="images/network-diagram.png" alt="Network Diagram">
+    </section>
 
+    <section id="lab-report">
+      <h2>Configuration Codes</h2>
+      <h3>Cisco Router Configuration Commands:</h3>
+      <pre>
+Router1> enable
+Router1# configure terminal
+Router1(config)# interface fastethernet 0/0
+Router1(config-if)# ip address 192.168.22.1 255.255.255.0
+Router1(config-if)# no shutdown
+Router1(config-if)# exit
+Router1(config)# interface fastethernet 0/1
+Router1(config-if)# ip address 192.168.122.1 255.255.255.0
+Router1(config-if)# no shutdown
+Router1(config-if)# exit
+      </pre>
 
-        </p>
-        <img src="images/network-diagram.png" alt="Network Diagram">
+      <h3>Ubuntu Server Configuration:</h3>
+      <pre>
+# Set up static IPs
+sudo nano /etc/netplan/00-installer-config.yaml
 
-        <h2>2. IP Address Table</h2>
-        <table border="1" cellpadding="5" cellspacing="0">
-            <tr>
-                <th>Device Role</th>
-                <th>IP Address</th>
-                <th>Subnet Mask</th>
-            </tr>
-            <tr>
-                <td>Desktop VM</td>
-                <td>192.168.22.2</td>
-                <td>255.255.255.0</td>
-            </tr>
-            <tr>
-                <td>Gateway Router VM (Subnet 01)</td>
-                <td>192.168.22.1</td>
-                <td>255.255.255.0</td>
-            </tr>
-            <tr>
-                <td>Gateway Router VM (Subnet 02)</td>
-                <td>192.168.122.1</td>
-                <td>255.255.255.0</td>
-            </tr>
-            <tr>
-                <td>Application Server VM</td>
-                <td>192.168.122.2</td>
-                <td>255.255.255.0</td>
-            </tr>
-        </table>
-        <h2>3. GitHub Link</h2>
-        <p><a href="https://github.com/MohamedAbisheik2506/SandBoxApplication.github.io.git" target="_blank">https://github.com/MohamedAbisheik2506/SandBox-Applications</a></p>
+# Example configuration
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses: [10.0.0.16/24]
+      gateway4: 10.0.0.1
+    enp0s8:
+      dhcp4: no
+      addresses: [192.168.22.1/24]
+    enp0s9:
+      dhcp4: no
+      addresses: [192.168.122.1/24]
+# Save and apply changes
+sudo netplan apply
+      </pre>
 
-        <h2>4. Functional Test Results</h2>
-        <p>Evidence of successful communication between VMs:</p>
-        <ul>
-            <li>Ping results between Ubuntu Server and Desktop:</li>
-            <img src="images/ping-server-desktop.png" alt="Ping Ubuntu Server to Desktop">
-            <li>Ping results between Ubuntu Server and Bitnami Application Server:</li>
-            <img src="images/ping-server-app.png" alt="Ping Ubuntu Server to Application Server">
-            <li>Ping results between Ubuntu Desktop and Ubuntu Server:</li>
-            <img src="images/ping-desktop-app.png" alt="Ping Desktop to Ubuntu Server">
-            <li>Ping results between Application Server and Ubuntu Server:</li>
-            <img src="images/ping-desktop-app.png" alt="Ping Application Server to Ubuntu Server">
-        </ul>
+      <h3>Ubuntu Desktop Configuration:</h3>
+      <pre>
+# Go to Network Settings
+# Set IPv4 Method to Manual
+# Add Address: 192.168.22.2
+# Netmask: 255.255.255.0
+# Gateway: 192.168.22.1
+      </pre>
 
+      <h3>Bitnami Application Server Configuration:</h3>
+      <pre>
+# Edit network interfaces
+sudo nano /etc/network/interfaces
 
-        <h2>5. Video Demonstration</h2>
-        <p>Check out the demonstration video:</p>
-        <p><a href="https://youtu.be/GzSqXAzXNz4" target="_blank">YouTube Link</a></p>
-    </div>
+# Add the following:
+auto enp0s3
+iface enp0s3 inet static
+  address 192.168.122.2
+  netmask 255.255.255.0
+  gateway 192.168.122.1
+
+# Restart networking services
+sudo systemctl restart networking
+      </pre>
+    </section>
+
+    <section id="test-results">
+      <h2>Functional Test Results</h2>
+      <p>Evidence of communication between all VMs:</p>
+      <ul>
+        <li>Ping results between Ubuntu Server and Desktop:</li>
+        <img src="images/ping-server-desktop.png" alt="Ping Ubuntu Server to Desktop">
+        <li>Ping results between Ubuntu Server and Application Server:</li>
+        <img src="images/ping-server-app.png" alt="Ping Ubuntu Server to Application Server">
+        <li>Application server to Ubuntu server:</li>
+        <img src="images/ping-app-server.png" alt="Application server to Ubuntu server">
+      </ul>
+    </section>
+
+    <section id="demo">
+      <h2>Video Demonstration</h2>
+      <p>Watch the project demonstration video below:</p>
+      <video controls>
+        <source src="videos/demo-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p>Alternatively, watch on <a href="https://youtu.be/GzSqXAzXNz4" target="_blank">YouTube</a>.</p>
+    </section>
+  </div>
+  <footer>
+    <p>&copy; 2024 Sandbox Application Project</p>
+  </footer>
 </body>
-
 </html>
