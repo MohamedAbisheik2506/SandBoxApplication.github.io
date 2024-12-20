@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        h1,
+        h2 {
+            color: #0056b3;
+        }
+        
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sandbox Application</h1>
+        <h2>1. Network Diagram</h2>
+        <p>Here is the network diagram: Configuration Steps: You need to create three VM Machine’s for this Project. • Download the Virtual Box (VM) and install in your PC. • Download the three OS for project. • Ubuntu Desktop (.iso format) or our Desktop
+            OS like (Kali Linux, Windows, etc..,). • Ubuntu Server OS (.iso format). • Application Server in Bitnami WordPress (.ova format). • Add three OS in Virtual Box.
+
+
+        </p>
+        <img src="images/network-diagram.png" alt="Network Diagram">
+
+        <h2>2. IP Address Table</h2>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <tr>
+                <th>Device Role</th>
+                <th>IP Address</th>
+                <th>Subnet Mask</th>
+            </tr>
+            <tr>
+                <td>Desktop VM</td>
+                <td>192.168.22.2</td>
+                <td>255.255.255.0</td>
+            </tr>
+            <tr>
+                <td>Gateway Router VM (Subnet 01)</td>
+                <td>192.168.22.1</td>
+                <td>255.255.255.0</td>
+            </tr>
+            <tr>
+                <td>Gateway Router VM (Subnet 02)</td>
+                <td>192.168.122.1</td>
+                <td>255.255.255.0</td>
+            </tr>
+            <tr>
+                <td>Application Server VM</td>
+                <td>192.168.122.2</td>
+                <td>255.255.255.0</td>
+            </tr>
+        </table>
+        <h2>3. GitHub Link</h2>
+        <p><a href="https://github.com/MohamedAbisheik2506/SandBox-Applications" target="_blank">https://github.com/MohamedAbisheik2506/SandBox-Applications</a></p>
+
+        <h2>4. Functional Test Results</h2>
+        <p>Evidence of successful communication between VMs:</p>
+        <ul>
+            <li>Ping results between Ubuntu Server and Desktop:</li>
+            <img src="images/ping-server-desktop.png" alt="Ping Ubuntu Server to Desktop">
+            <li>Ping results between Ubuntu Server and Bitnami Application Server:</li>
+            <img src="images/ping-server-app.png" alt="Ping Ubuntu Server to Application Server">
+            <li>Ping results between Ubuntu Desktop and Ubuntu Server:</li>
+            <img src="images/ping-desktop-app.png" alt="Ping Desktop to Ubuntu Server">
+            <li>Ping results between Application Server and Ubuntu Server:</li>
+            <img src="images/ping-desktop-app.png" alt="Ping Application Server to Ubuntu Server">
+        </ul>
+
+
+        <h2>5. Video Demonstration</h2>
+        <p>Check out the demonstration video:</p>
+        <p><a href="https://youtu.be/GzSqXAzXNz4" target="_blank">YouTube Link</a></p>
+    </div>
+</body>
+
+</html>
