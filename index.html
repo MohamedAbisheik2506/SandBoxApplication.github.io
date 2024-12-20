@@ -103,7 +103,7 @@
   </header>
   <nav>
     <a href="#ip-table">IP Address Table</a>
-    <a href="#lab-report">Configuration Codes</a>
+    <a href="#lab-report">Configuration Steps</a>
     <a href="#test-results">Functional Test Results</a>
     <a href="#demo">Video Demo</a>
   </nav>
@@ -154,6 +154,98 @@
       </table>
     </section>
 
+    <section id="lab-report">
+      <h2>Configuration Steps</h2>
+      <h3>Cisco Router Configuration Commands:</h3>
+      <pre>
+Router1> enable
+Router1# configure terminal
+Router1(config)# interface fastethernet 0/0
+Router1(config-if)# ip address 192.168.22.1 255.255.255.0
+Router1(config-if)# no shutdown
+Router1(config-if)# exit
+Router1(config)# interface fastethernet 0/1
+Router1(config-if)# ip address 192.168.122.1 255.255.255.0
+Router1(config-if)# no shutdown
+Router1(config-if)# exit
+      </pre>
+
+      <h3>Ubuntu Server Configuration:</h3>
+      <pre>
+# Step 1: Edit netplan to assign static IPs
+sudo nano /etc/netplan/00-installer-config.yaml
+
+# Example configuration
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses: [10.0.0.16/24]
+      gateway4: 10.0.0.1
+    enp0s8:
+      dhcp4: no
+      addresses: [192.168.22.1/24]
+    enp0s9:
+      dhcp4: no
+      addresses: [192.168.122.1/24]
+
+# Apply the configuration
+sudo netplan apply
+
+# Step 2: Enable IP forwarding
+sudo nano /etc/sysctl.conf
+# Uncomment this line:
+net.ipv4.ip_forward=1
+
+# Apply changes
+sudo sysctl -p
+
+# Step 3: Set up IP tables
+sudo iptables -A FORWARD -i enp0s3 -o enp0s8 -j ACCEPT
+sudo iptables -A FORWARD -i enp0s8 -o enp0s3 -j ACCEPT
+
+# Save the IP table rules
+sudo apt install iptables-persistent
+sudo netfilter-persistent save
+sudo netfilter-persistent reload
+      </pre>
+
+      <h3>Ubuntu Desktop Configuration:</h3>
+      <pre>
+# Go to Settings > Network > enp0s3
+# Set IPv4 Method to Manual
+# Add the following:
+IP Address: 192.168.22.2
+Netmask: 255.255.255.0
+Gateway: 192.168.22.1
+# Apply changes and restart the connection.
+      </pre>
+
+      <h3>Bitnami Application Server Configuration:</h3>
+      <pre>
+# Step 1: Configure network interfaces
+sudo nano /etc/network/interfaces
+
+# Add the following:
+auto enp0s3
+iface enp0s3 inet static
+  address 192.168.122.2
+  netmask 255.255.255.0
+  gateway 192.168.122.1
+
+# Restart networking services
+sudo systemctl restart networking
+
+# Step 2: Enable Apache and MySQL
+sudo systemctl enable apache2
+sudo systemctl start apache2
+sudo systemctl enable mysql
+sudo systemctl start mysql
+      </pre>
+    </section>
+
     <section id="test-results">
       <h2>Functional Test Results</h2>
       <p>Evidence of communication between all VMs:</p>
@@ -172,7 +264,7 @@
     <section id="demo">
       <h2>Video Demonstration</h2>
       <p>Watch the project demonstration video below:</p>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/GzSqXAzXNz4?si=r8v9f-_8LpEWUcYy" 
+      <iframe width="560" height="560" src="https://www.youtube.com/embed/GzSqXAzXNz4?si=r8v9f-_8LpEWUcYy" 
               title="YouTube video player" frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
               referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
